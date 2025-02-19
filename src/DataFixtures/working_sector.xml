@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="working_sectors_fr">
+    <table name="working_sector">
+        <column name="name">Artiste</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">Bien être</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">BTP</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">Commerçant</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">Communication</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">Digital</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">Finance</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">Immo</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">Informatique</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">RH</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">Service aux entreprises</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">Service aux particuliers</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">Sport</column>
+    </table>
+    <table name="working_sector">
+        <column name="name">AUTRE...</column>
+    </table>
+</database>
