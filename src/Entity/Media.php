@@ -40,31 +40,31 @@ class Media
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="images")
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $event;
 
     /**
      * @ORM\OneToOne(targetEntity=Post::class, mappedBy="image", cascade={"persist", "remove"})
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $post;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="activityImages")
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $activityUser;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="customers")
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $customerUser;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="achievements")
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $user;
 

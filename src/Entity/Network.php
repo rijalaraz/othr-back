@@ -102,7 +102,7 @@ class Network implements OrganizerInterface
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Media", cascade={"persist", "remove"}, fetch="EAGER")
-     * @ORM\joinColumn(onDelete="SET NULL", nullable=true)
+     * @ORM\JoinColumn(onDelete="SET NULL", nullable=true)
      * @Groups({"network_write","network_read","event_read","user_read","post_read"})
      * @FileSize()
      */
@@ -129,7 +129,7 @@ class Network implements OrganizerInterface
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Media", cascade={"persist", "remove"})
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"network_write","network_read","event_read","user_read","userevent_read","event_high","event_calendar"})
      * @Assert\NotBlank(message="Le logo est obligatoire")
      * @FileSize()
@@ -138,7 +138,7 @@ class Network implements OrganizerInterface
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Media", cascade={"persist", "remove"})
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"network_write","network_read","event_read","network_type_read","network_home"})
      * @Assert\NotBlank(message="L'image de représentation est obligatoire")
      * @FileSize()
@@ -160,7 +160,7 @@ class Network implements OrganizerInterface
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Media", cascade={"persist", "remove"})
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"network_write","network_read","event_read"})
      * @Assert\NotBlank(message="La vidéo est obligatoire")
      */
@@ -175,7 +175,7 @@ class Network implements OrganizerInterface
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Media", cascade={"persist", "remove"})
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"network_write","network_read","event_read"})
      * @Assert\NotBlank(message="L'image d'ambiance est obligatoire")
      * @FileSize()

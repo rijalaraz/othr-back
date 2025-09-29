@@ -17,7 +17,7 @@
         "doctrine/doctrine-migrations-bundle": "^2",
         "doctrine/orm": "^2",
         "gedmo/doctrine-extensions": "^2.4",
-        "lexik/jwt-authentication-bundle": "^2.6",
+        "lexik/jwt-authentication-bundle": "^2.21",
         "nelmio/cors-bundle": "^2.0",
         "phpdocumentor/reflection-docblock": "^5.3",
         "ralouphie/mimey": "^2.1",

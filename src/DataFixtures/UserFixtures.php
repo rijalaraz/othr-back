@@ -285,7 +285,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setFirstName($faker->firstName);
             $user->setLastName($faker->lastName);
             $user->setEmail($faker->email);
-            $user->setPassword('$2y$12$ORnjH4CGJwueY5.yOlikCuK0Ti3E4r/269NrbYFkVhn5l6paRJVPO');
+            $user->setPassword('$2y$12$ORnjH4CGJwueY5.yOlikCuK0Ti3E4r/269NrbYFkVhn5l6paRJVPO'); // 123456
             $user->setPhoneNumber($faker->phoneNumber);
 
             $indexColor = array_rand($aColors);

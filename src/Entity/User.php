@@ -181,7 +181,7 @@ class User implements UserInterface, OrganizerInterface {
 
     /**
      * @ORM\OneToOne(targetEntity=Media::class, cascade={"persist", "remove"})
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"user_read","event_read","user_write"})
      */
     private $video;
@@ -194,7 +194,7 @@ class User implements UserInterface, OrganizerInterface {
 
     /**
      * @ORM\OneToOne(targetEntity=Media::class, cascade={"persist", "remove"})
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"user_read","event_read","user_write","userevent_read","event_high","event_calendar"})
      * @Assert\Type(type="App\Entity\Media")
      * @Assert\Valid
@@ -220,7 +220,7 @@ class User implements UserInterface, OrganizerInterface {
 
     /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="activityUser", cascade={"persist", "remove"})
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"user_read","event_read","user_write"})
      * @Assert\All({
      *     @Assert\Type(type="App\Entity\Media")
@@ -241,7 +241,7 @@ class User implements UserInterface, OrganizerInterface {
 
     /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="user", cascade={"persist", "remove"})
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"user_read","event_read","user_write"})
      * @Assert\All({
      *     @Assert\Type(type="App\Entity\Media")
@@ -252,7 +252,7 @@ class User implements UserInterface, OrganizerInterface {
 
     /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="customerUser", cascade={"persist", "remove"})
-     * @ORM\joinColumn(onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"user_read","user_write"})
      * @Assert\All({
      *     @Assert\Type(type="App\Entity\Media")
