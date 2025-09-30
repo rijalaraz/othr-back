@@ -33,7 +33,7 @@ class Media
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"event_write","network_write","event_put","user_write","company_write","post_write","postelement_write"})
+     * @Groups({"advert_write","advert_read","advert:put","event_write","network_write","event_put","user_write","company_write","post_write","postelement_write"})
      * @MediaUrl()
      */
     private $url;

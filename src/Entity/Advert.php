@@ -27,6 +27,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "method"="GET",
  *         "pagination_enabled"=false,
  *      }
+ *  },
+ *  itemOperations={
+ *      "put"={
+ *          "controller"="App\Controller\UploadAdvertMediaAction",
+ *          "denormalization_context"={"groups"={"advert:put"}}
+ *      },
+ *      "get",
+ *      "delete"
  *  }
  * )
  * @ORM\HasLifecycleCallbacks()
@@ -48,14 +56,13 @@ class Advert
 
     /**
      * @ORM\OneToOne(targetEntity=Media::class, cascade={"persist", "remove"})
-     * @Groups({"advert_write","advert_read"})
+     * @Groups({"advert_write","advert_read","advert:put"})
      * @FileSize()
      */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"advert_write","advert_read"})
      */
     private $url;
 
