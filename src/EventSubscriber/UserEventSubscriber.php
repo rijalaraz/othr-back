@@ -7,14 +7,24 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Slot\MandrillBundle\Dispatcher;
 use Slot\MandrillBundle\Message;
+use Symfony\Bridge\Twig\Mime\BodyRenderer;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Mailer\EventListener\MessageListener;
+use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\Transport;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Twig\Environment;
 
 class UserEventSubscriber implements EventSubscriberInterface
 {
@@ -26,6 +36,8 @@ class UserEventSubscriber implements EventSubscriberInterface
     private $serializer;
     private $dispatcher;
     private $userRepository;
+    private $twig;
+    private $container;
 
     public function __construct(
 
@@ -35,16 +47,27 @@ class UserEventSubscriber implements EventSubscriberInterface
         UserPasswordEncoderInterface $encoder,
         MailerInterface $mailer,
         SerializerInterface $serializer,
-        Dispatcher $dispatcher
+        Dispatcher $dispatcher,
+        Environment $twig,
+        ContainerInterface $container
     ) {
 
         $this->userRepository     = $userRepository;
         $this->serializer     = $serializer;
         $this->tokenGenerator = $tokenGenerator;
-        $this->mailer         = $mailer;
         $this->router         = $router;
         $this->encoder        = $encoder;
         $this->dispatcher     = $dispatcher;
+        $this->twig           = $twig;
+        $this->container      = $container;
+
+        $messageListener = new MessageListener(null, new BodyRenderer($this->twig));
+
+        $eventDispatcher = new EventDispatcher();
+        $eventDispatcher->addSubscriber($messageListener);
+
+        $transport = Transport::fromDsn($this->container->getParameter("mailer_dsn"), $eventDispatcher);
+        $this->mailer = new Mailer($transport, null, $eventDispatcher);
 
     }
 
@@ -82,7 +105,8 @@ class UserEventSubscriber implements EventSubscriberInterface
         $this->userRepository->upgradePassword($user, $user->getPassword());
         $event->setControllerResult($user);
         $link = $this->createLink($user->getToken());
-        $this->sendEmail($link, $email);
+        $this->sendEmailBySymfonyMailer($link, $email);
+        // $this->sendEmail($link, $email);
     }
 
     public function resetPassword($event, $token, $password)
@@ -124,6 +148,24 @@ class UserEventSubscriber implements EventSubscriberInterface
         if ($result[0]['status'] == 'rejected') {
             throw new BadRequestHttpException('Email: ' . $result[0]['reject_reason']);
         }
+    }
+
+    public function sendEmailBySymfonyMailer($url, $emailTo)
+    {
+        // Create the email
+        $email = (new TemplatedEmail())
+            ->from(new Address('sender@othr.com', 'Othr'))
+            ->to($emailTo)
+            ->subject('Othr Reset password')
+            ->htmlTemplate('emails/reset-password.html.twig') // Path to the Twig template
+            ->context([
+                'reset_link' => $url, // Variables passed to the template
+            ]);
+
+        // Send the email
+        $this->mailer->send($email);
+
+        return new Response('Email sent successfully!');
     }
 
 }

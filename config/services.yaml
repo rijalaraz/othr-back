@@ -9,7 +9,7 @@ parameters:
     upload_max_file_size: 2097152
     tokenLifeTime: '%env(TOKEN_LIFETIME)%'
     stripe_api_key: '%env(STRIPE_SECRET_KEY)%'
-
+    mailer_dsn: '%env(MAILER_DSN)%'
 
 services:
     # default configuration for services in *this* file
